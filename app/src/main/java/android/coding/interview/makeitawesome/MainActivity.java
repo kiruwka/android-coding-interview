@@ -1,5 +1,7 @@
 package android.coding.interview.makeitawesome;
 
+import android.app.FragmentTransaction;
+import android.coding.interview.makeitawesome.fragment.DetailFragment;
 import android.coding.interview.makeitawesome.fragment.PicturesFragment;
 import android.coding.interview.makeitawesome.fragment.WelcomeScreenFragment;
 import android.os.Bundle;
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (fm.findFragmentByTag("PICTURES_FRAGMENT") == null) { // no pictures shown yet, show it
                     fm.beginTransaction().replace(R.id.content_frame, PicturesFragment.newInstance(), "PICTURES_FRAGMENT").addToBackStack(null).commit();
                 }
+
         }
         
         mDrawerLayout.closeDrawers();

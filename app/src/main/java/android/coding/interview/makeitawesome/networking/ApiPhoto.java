@@ -4,6 +4,7 @@ import android.coding.interview.makeitawesome.model.Album;
 
 import java.util.List;
 
+import retrofit.Callback;
 import retrofit.http.GET;
 
 /**
@@ -12,5 +13,6 @@ import retrofit.http.GET;
 public interface ApiPhoto {
 
     @GET("/")
-    List<Album> listPhotos();
+    public void listPhotos(Callback<List<Album>> callback);
+
 }
