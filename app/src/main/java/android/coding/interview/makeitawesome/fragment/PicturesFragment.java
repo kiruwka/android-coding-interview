@@ -1,14 +1,13 @@
 package android.coding.interview.makeitawesome.fragment;
 
+import android.app.ProgressDialog;
 import android.coding.interview.makeitawesome.Picture;
 import android.coding.interview.makeitawesome.R;
 import android.coding.interview.makeitawesome.adapter.PhotosAdapter;
 import android.coding.interview.makeitawesome.data.ImageData;
 import android.coding.interview.makeitawesome.utils.DividerItemDecoration;
 import android.coding.interview.makeitawesome.utils.JSONResponseHandler;
-import android.coding.interview.makeitawesome.utils.QueryResult;
 import android.content.Intent;
-import android.location.Location;
 import android.net.http.AndroidHttpClient;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,14 +19,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * This is Your TASK:<br>
@@ -40,7 +37,8 @@ public class PicturesFragment extends Fragment implements PhotosAdapter.ClickLis
     private PhotosAdapter mPhotosAdapter;
     protected RecyclerView mRecyclerView;
     private ArrayList<ImageData> mData = new ArrayList<>();
-
+    private AsyncTask<Void, Void, ArrayList<ImageData>> httpGetTask;
+    private ProgressDialog dialog;
     public static Fragment newInstance() {
         return new PicturesFragment();
     }
@@ -50,15 +48,20 @@ public class PicturesFragment extends Fragment implements PhotosAdapter.ClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mPhotosAdapter = new PhotosAdapter(mData, getActivity());
 
-        //todo if there's no results show it
-        //tv_no_results = (TextView) findViewById(R.id.tv_no_results);
-
-        new HttpGetTask().execute(); //start background task
-
+        httpGetTask = new HttpGetTask().execute(); //start background task
 
         mRecyclerView = (RecyclerView) inflater.inflate(R.layout.pictures_list_fragment, container, false);
         setupRecyclerView(mRecyclerView);
         return mRecyclerView;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (dialog != null){
+            dialog.dismiss();
+        }
+        httpGetTask.cancel(true);
     }
 
     private void setupRecyclerView(RecyclerView recyclerView) {
@@ -85,6 +88,15 @@ public class PicturesFragment extends Fragment implements PhotosAdapter.ClickLis
 
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog = new ProgressDialog(getActivity());
+            dialog.setTitle(getString(R.string.loading));
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        @Override
         protected ArrayList<ImageData> doInBackground(Void... unused) {
             Log.v(TAG, "doInBackground");
 
@@ -106,27 +118,30 @@ public class PicturesFragment extends Fragment implements PhotosAdapter.ClickLis
         @Override
         protected void onPostExecute(ArrayList<ImageData> result) {
             Log.v(TAG, "onPostExecute");
-            ArrayList<ImageData> searchResults = new ArrayList<>();
+            if (!isCancelled()){
+                dialog.dismiss();
+                ArrayList<ImageData> searchResults = new ArrayList<>();
 
-            if (mClient != null && result != null) {
-                Log.v(TAG, "search complete");
+                if (mClient != null && result != null) {
+                    Log.v(TAG, "search complete");
                 /*for (Map.Entry<String, ImageData> mLibraryItem : result.getphotos().entrySet()) {
                     searchResults.add(mLibraryItem.getValue());
                 }*/
-                //for (ImageData data : )
-                for (ImageData mData : result){
-                    searchResults.add(mData);
+                    //for (ImageData data : )
+                    for (ImageData mData : result){
+                        searchResults.add(mData);
+                    }
                 }
-            }
-            if ((result == null || result.size() == 0)) {
-                //todo: if there's no results show no results found
-                //tv_no_results.setVisibility(View.VISIBLE);
-            } else {
-                //tv_no_results.setVisibility(View.GONE);
-                int counter = 0;
-                for (ImageData imageData: searchResults) {
-                    mPhotosAdapter.insertmData(imageData, counter);
-                    counter++;
+                if ((result == null || result.size() == 0)) {
+                    //todo: if there's no results show no results found
+                    //tv_no_results.setVisibility(View.VISIBLE);
+                } else {
+                    //tv_no_results.setVisibility(View.GONE);
+                    int counter = 0;
+                    for (ImageData imageData: searchResults) {
+                        mPhotosAdapter.insertmData(imageData, counter);
+                        counter++;
+                    }
                 }
             }
         }
