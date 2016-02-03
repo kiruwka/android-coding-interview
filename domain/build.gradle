@@ -1,0 +1,20 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile rootProject.ext.dependencies.rxjava
+    compile 'javax.inject:javax.inject:1'
+
+    compile ('org.simpleframework:simple-xml:2.7.1') {
+        exclude module: 'stax-api'
+        exclude module: 'stax-stax'
+        exclude module: 'xpp3:xpp3'
+    }
+
+    testCompile rootProject.ext.dependencies.junit
+    testCompile rootProject.ext.dependencies.mockito
+}

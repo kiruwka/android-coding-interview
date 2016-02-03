@@ -1,4 +1,4 @@
-package android.coding.interview.makeitawesome;
+package android.coding.interview.makeitawesome.data;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

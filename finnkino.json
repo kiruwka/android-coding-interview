@@ -1,0 +1,59 @@
+{
+  "ID": "301317",
+  "Title": "Zoolander 2",
+  "OriginalTitle": "Zoolander 2",
+  "ProductionYear": "2016",
+  "LengthInMinutes": "0",
+  "dtLocalRelease": "2016-02-12T00:00:00",
+  "Rating": "Tulossa",
+  "RatingLabel": "Tulossa",
+  "RatingImageUrl": "https://media.finnkino.fi/images/rating_large_Tulossa.png",
+  "LocalDistributorName": "Finnkinon teatterilevitys",
+  "GlobalDistributorName": "Finnkinon teatterilevitys - Paramount",
+  "ProductionCompanies": "-",
+  "EventType": "Movie",
+  "Genres": "Komedia",
+  "ShortSynopsis": "Maailman kuumimmat miesmallit Derek Zoolander (Ben Stiller) ja Hansel McDonald (Owen Wilson) palaavat valkokankaille Stillerin ohjaamassa kulttikomedian jatko-osassa.",
+  "Synopsis": "Maailman kuumimmat miesmallit Derek Zoolander (Ben Stiller) ja Hansel McDonald (Owen Wilson) palaavat valkokankaille Stillerin ohjaamassa kulttikomedian jatko-osassa.",
+  "EventURL": "http://www.finnkino.fi/Event/301317/",
+  "Images": {
+    "EventMicroImagePortrait": "http://media.finnkino.fi/1012/Event_10655/portrait_micro/Zoolander2_1080t.jpg",
+    "EventSmallImagePortrait": "http://media.finnkino.fi/1012/Event_10655/portrait_small/Zoolander2_1080t.jpg",
+    "EventMediumImagePortrait": "http://media.finnkino.fi/1012/Event_10655/portrait_medium/Zoolander2_1080t.jpg",
+    "EventLargeImagePortrait": "http://media.finnkino.fi/1012/Event_10655/portrait_small/Zoolander2_1080t.jpg",
+    "EventSmallImageLandscape": "http://media.finnkino.fi/1012/Event_10655/landscape_small/Zoolander2_444.jpg",
+    "EventLargeImageLandscape": "http://media.finnkino.fi/1012/Event_10655/landscape_large/Zoolander2_670.jpg"
+  },
+  "Videos": " ",
+  "Cast": {
+    "Actor": [
+      {
+        "FirstName": "Ben",
+        "LastName": "Stiller"
+      },
+      {
+        "FirstName": "Owen",
+        "LastName": "Wilson"
+      },
+      {
+        "FirstName": "Will",
+        "LastName": "Ferrell"
+      },
+      {
+        "FirstName": "Penelope",
+        "LastName": "Cruz"
+      },
+      {
+        "FirstName": "Kristen",
+        "LastName": "Wiig"
+      }
+    ]
+  },
+  "Directors": {
+    "Director": {
+      "FirstName": "Ben",
+      "LastName": "Stiller"
+    }
+  },
+  "ContentDescriptors": ""
+}

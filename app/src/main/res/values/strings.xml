@@ -3,4 +3,10 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="no_data">No data</string>
+    <string name="up_coming_movies">Upcoming Movies</string>
+    <string name="activity_detail_label_tagline">Tagline</string>
+    <string name="activity_detail_label_description">Description</string>
+    <string name="activity_detail_reviews_description">Reviews</string>
+    <string name="now_showing_movies">Now showing in theatres</string>
 </resources>
