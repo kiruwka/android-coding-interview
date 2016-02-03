@@ -1,15 +1,30 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+        //classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
+    }
+}
+
+apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
         applicationId "android.coding.interview.makeitawesome"
-        minSdkVersion 14
-        targetSdkVersion 22
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -17,11 +32,41 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        encoding "UTF-8"
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.android.support:design:22.2.0'
-    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile project(':data')
+    compile rootProject.ext.dependencies.supportAppCompat
+    compile rootProject.ext.dependencies.supportDesign
+    compile rootProject.ext.dependencies.supportRecyclerview
+    compile rootProject.ext.dependencies.supportAnnotations
+    compile rootProject.ext.dependencies.rxandroid
+    compile rootProject.ext.dependencies.mosby
+    compile rootProject.ext.dependencies.mosbyViewState
+    compile rootProject.ext.dependencies.dagger2
+    compile rootProject.ext.dependencies.picasso
+
+    debugCompile rootProject.ext.dependencies.leakcanary
+
+    apt rootProject.ext.dependencies.dagger2Compiler
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    testCompile rootProject.ext.dependencies.junit
+    testCompile rootProject.ext.dependencies.mockito
+
+    androidTestCompile rootProject.ext.dependencies.mockito
+    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.1'
+    androidTestCompile rootProject.ext.dependencies.supportAnnotations
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile 'org.hamcrest:hamcrest-library:1.3'
 }

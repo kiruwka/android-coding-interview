@@ -1,7 +1,6 @@
 package android.coding.interview.makeitawesome;
 
-import android.coding.interview.makeitawesome.fragment.PicturesFragment;
-import android.coding.interview.makeitawesome.fragment.WelcomeScreenFragment;
+import android.coding.interview.makeitawesome.fragment.NowShowingInTheatresFragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -26,25 +25,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // setup action bar
         Toolbar actionBar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(actionBar);
-        
+
         // setting up action bar icon and home navigation
         final ActionBar ab = getSupportActionBar();
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
-        
-        
+
+
         // drawer layout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         if (navigationView != null) {
-           navigationView.setNavigationItemSelectedListener(this); 
+            navigationView.setNavigationItemSelectedListener(this);
         }
 
         FragmentManager fm = getSupportFragmentManager();
         if (fm.findFragmentById(R.id.content_frame) == null) { // no fragment visible yet -> create default one
-           fm.beginTransaction().add(R.id.content_frame, WelcomeScreenFragment.newInstance()).commit();
+            fm.beginTransaction().add(R.id.content_frame, NowShowingInTheatresFragment.newInstance(), "PICTURES_FRAGMENT").commit();
         }
-        
+
     }
 
     @Override
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
@@ -69,13 +68,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // handling items selection in Menu Drawer
         //menuItem.setChecked(true);
         switch (menuItem.getItemId()) {
-            case R.id.navigation_photos:
+            case R.id.now_showing:
                 FragmentManager fm = getSupportFragmentManager();
                 if (fm.findFragmentByTag("PICTURES_FRAGMENT") == null) { // no pictures shown yet, show it
-                    fm.beginTransaction().replace(R.id.content_frame, PicturesFragment.newInstance(), "PICTURES_FRAGMENT").addToBackStack(null).commit();
+                    fm.beginTransaction().replace(R.id.content_frame, NowShowingInTheatresFragment.newInstance(), "PICTURES_FRAGMENT").addToBackStack(null).commit();
                 }
         }
-        
+
         mDrawerLayout.closeDrawers();
         return true;
     }
